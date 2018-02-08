@@ -15,7 +15,8 @@ public class MyProduct {
     private String title;
     private int cost;
 
-    public MyProduct() {}
+    public MyProduct() {
+    }
 
     public MyProduct(String title, int price) {
         this.title = title;
