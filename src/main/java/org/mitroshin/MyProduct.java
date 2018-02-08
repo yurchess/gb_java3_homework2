@@ -8,6 +8,9 @@ import javax.persistence.*;
 @Table(name = "PRODUCT")
 public class MyProduct {
 
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
     private String title;
     private int cost;
@@ -19,9 +22,6 @@ public class MyProduct {
         this.cost = price;
     }
 
-    @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
     public long getId() {
         return id;
     }

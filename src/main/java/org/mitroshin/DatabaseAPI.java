@@ -6,6 +6,8 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 public class DatabaseAPI {
@@ -48,7 +50,9 @@ public class DatabaseAPI {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        MyProduct product = (MyProduct) session.createQuery("from MyProduct where title = '" + title + "'").getSingleResult();
+        Query query = session.createQuery("from MyProduct as myProduct where title = :title");
+        query.setParameter("title", title);
+        MyProduct product = (MyProduct) query.getSingleResult();
         System.out.println(product.getCost());
 
         session.getTransaction().commit();
@@ -59,8 +63,26 @@ public class DatabaseAPI {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        MyProduct product = (MyProduct) session.createQuery("from MyProduct where title = '" + title + "'").getSingleResult();
-        System.out.println(product.getCost());
+        Query query = session.createQuery("update MyProduct set cost = :newPrice where title = :title")
+                .setParameter("title", title)
+                .setParameter("newPrice", newPrice);
+        int result = query.executeUpdate();
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void getProductsWithinPriceRange(int lowPrice, int highPrice) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from MyProduct where cost between :lowPrice and :highPrice")
+                .setParameter("lowPrice", lowPrice)
+                .setParameter("highPrice", highPrice);
+        List products = query.getResultList();
+        for (MyProduct product : (List<MyProduct>) products) {
+            System.out.println(product);
+        }
 
         session.getTransaction().commit();
         session.close();

@@ -10,6 +10,10 @@ public class Main {
             databaseAPI.init();
             databaseAPI.read();
             databaseAPI.getPrice("Product1");
+            databaseAPI.changePrice("Product1", 55);
+            databaseAPI.getPrice("Product1");
+
+            databaseAPI.getProductsWithinPriceRange(20, 56);
         } catch (Exception e) {
             e.printStackTrace();
         }
