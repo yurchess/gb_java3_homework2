@@ -4,7 +4,15 @@ public class Main {
     public static void main(String[] args) {
 
         DatabaseAPI databaseAPI = new DatabaseAPI();
-        databaseAPI.init();
-        databaseAPI.read();
+        try {
+            databaseAPI.connect();
+
+            databaseAPI.init();
+            databaseAPI.read();
+            databaseAPI.getPrice("Product1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.exit(0);
     }
 }
