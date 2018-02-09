@@ -1,3 +1,11 @@
+/**
+ * Java3. Homework2
+ *
+ * @author Yury Mitroshin
+ * @version dated Feb 9, 2018
+ * @link https://github.com/yurchess/gb_java3_homework2
+ */
+
 package org.mitroshin;
 
 import org.mitroshin.commands.*;
