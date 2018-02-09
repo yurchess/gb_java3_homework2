@@ -14,8 +14,8 @@ public class CommandBuilder {
                 return new CommandSelectByPriceRange(arguments);
             case Constants.HELP:
                 return new CommandHelp(arguments);
-                default:
-                    throw new Exception("Unknown command: " + arguments[0]);
+            default:
+                return new CommandUnknown(arguments);
         }
     }
 }
