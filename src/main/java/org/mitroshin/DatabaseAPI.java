@@ -6,15 +6,30 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
 public class DatabaseAPI {
     private SessionFactory sessionFactory;
     private static final int ENTITIES_COUNT = 1000;
+    private static DatabaseAPI instance;
 
-    public void connect() throws Exception {
+    private DatabaseAPI() {
+        try {
+            connect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static DatabaseAPI getInstance() {
+        if (instance == null) {
+            instance = new DatabaseAPI();
+        }
+        return instance;
+    }
+
+    private void connect() throws Exception {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure()
                 .build();
