@@ -68,8 +68,14 @@ public class DatabaseAPI {
 
         Query query = session.createQuery("from MyProduct where title = :title");
         query.setParameter("title", title);
-        MyProduct product = (MyProduct) query.getSingleResult();
-        System.out.println(product.getCost());
+        List<MyProduct> result = query.getResultList();
+        if (result.size() == 0) {
+            System.out.println("Not found");
+        } else {
+            for (MyProduct product : result) {
+                System.out.println(product.getCost());
+            }
+        }
 
         session.getTransaction().commit();
         session.close();
