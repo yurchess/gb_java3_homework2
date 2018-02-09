@@ -12,6 +12,7 @@ import java.util.List;
 
 public class DatabaseAPI {
     private SessionFactory sessionFactory;
+    private static final int ENTITIES_COUNT = 1000;
 
     public void connect() throws Exception {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
@@ -28,7 +29,7 @@ public class DatabaseAPI {
     public void init() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < ENTITIES_COUNT; i++) {
             session.save(new MyProduct("Product" + i, i * 10));
         }
         session.getTransaction().commit();
