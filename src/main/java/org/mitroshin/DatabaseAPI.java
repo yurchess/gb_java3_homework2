@@ -51,7 +51,7 @@ public class DatabaseAPI {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Query query = session.createQuery("from MyProduct as myProduct where title = :title");
+        Query query = session.createQuery("from MyProduct where title = :title");
         query.setParameter("title", title);
         MyProduct product = (MyProduct) query.getSingleResult();
         System.out.println(product.getCost());
